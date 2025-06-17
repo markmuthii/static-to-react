@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>User Details</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <a href="index.html">← Back</a>
+    <main id="user-detail-container"></main>
+
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const uuid = params.get("id");
+      const users = JSON.parse(localStorage.getItem("users") || "[]");
+      const user = users.find((u) => u.login.uuid === uuid);
+
+      const container = document.getElementById("user-detail-container");
+      if (!user) {
+        container.innerHTML = "<p>User not found.</p>";
+      } else {
+        container.innerHTML = `
+        <div class="user-card">
+          <img src="${user.picture.large}" alt="${user.name.first}">
+          <h2>${user.name.first} ${user.name.last}</h2>
+          <p><strong>Email:</strong> ${user.email}</p>
+          <p><strong>Phone:</strong> ${user.phone}</p>
+          <p><strong>Location:</strong> ${user.location.city}, ${
+          user.location.country
+        }</p>
+          <p><strong>DOB:</strong> ${new Date(
+            user.dob.date
+          ).toLocaleDateString()}</p>
+        </div>
+      `;
+      }
+    </script>
+  </body>
+</html>
