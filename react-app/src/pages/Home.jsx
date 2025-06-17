@@ -18,7 +18,9 @@ function Home() {
     <div className="container">
       <header>
         <h1>Random User Directory</h1>
-        <button onClick={fetchUsers}>Load Users</button>
+        <button id="load-users" onClick={fetchUsers}>
+          Load Users
+        </button>
       </header>
 
       {loading ? <p>Loading...</p> : <UserList users={users} />}
